@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akın - İlgi Alanlarım</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .card-img-top { height: 350px; object-fit: cover; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Akın'ın Portfolyosu</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Hakkında</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cv.html">Özgeçmiş</a></li>
+                    <li class="nav-item"><a class="nav-link" href="sehrim.html">Şehrim</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="ilgialanlarim.html">İlgi Alanlarım</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <header class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary">Favori Dizi ve Filmlerim</h1>
+            <p class="lead text-muted">Bu sayfadaki veriler <strong>TV Maze API</strong> kullanılarak canlı olarak çekilmektedir.</p>
+            <button id="fetchDataBtn" class="btn btn-primary btn-lg mt-3">Verileri Yenile / Getir</button>
+        </header>
+
+        <div id="movieContainer" class="row">
+            <div class="col-12 text-center">
+                <p class="text-muted">Butona basarak verileri yükleyebilirsiniz...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4 mt-auto">
+        <div class="container"><small>&copy; 2026 Akın | Web Teknolojileri Projesi</small></div>
+    </footer>
+
+    <script>
+        document.getElementById('fetchDataBtn').addEventListener('click', function() {
+            const container = document.getElementById('movieContainer');
+            container.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary" role="status"></div><p>Yükleniyor...</p></div>';
+
+            // TV Maze API'den "Game of Thrones" araması yapıyoruz
+            fetch('https://api.tvmaze.com/search/shows?q=action')
+                .then(response => response.json())
+                .then(data => {
+                    container.innerHTML = ''; // Temizle
+                    
+                    data.forEach(item => {
+                        const show = item.show;
+                        const image = show.image ? show.image.medium : 'https://via.placeholder.com/210x295?text=Resim+Yok';
+                        const summary = show.summary ? show.summary.substring(0, 150) + '...' : 'Özet bulunmuyor.';
+
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4 col-lg-3 mb-4';
+                        col.innerHTML = `
+                            <div class="card h-100 shadow-sm border-0">
+                                <img src="${image}" class="card-img-top" alt="${show.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">${show.name}</h5>
+                                    <p class="card-text small text-muted">${summary}</p>
+                                    <a href="${show.url}" target="_blank" class="btn btn-sm btn-outline-primary w-100">Detayları Gör</a>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(col);
+                    });
+                })
+                .catch(error => {
+                    container.innerHTML = '<p class="text-danger text-center">Veri çekilirken bir hata oluştu!</p>';
+                    console.error('Hata:', error);
+                });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
