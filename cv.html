@@ -1,14 +1,23 @@
 <!DOCTYPE html>
+<!--
+    Akın Boz - Web Teknolojileri Projesi
+    Özgeçmiş (CV) sayfası - cv.html
+    Bu sayfayı semantic taglerle kurmaya çalıştım çünkü ödevde özellikle istenmiş.
+    header, main, section, article, footer hepsi var.
+    Tasarımı çok yüklemedim, CV gibi sade durması gerek diye düşündüm.
+-->
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akın - Özgeçmiş</title>
+    <!-- Bootstrap + kendi css dosyam (sıralama önemli, kendi yazdıklarım sonda olsun) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- Navigasyon - diğer sayfalarla aynı, sadece active class özgeçmişe verildi -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Akın'ın Portfolyosu</a>
@@ -28,6 +37,7 @@
         </div>
     </nav>
 
+    <!-- Üst başlık alanı - klasik bir CV görünümü için gri arkaplan tercih ettim -->
     <header class="bg-secondary text-white text-center py-5">
         <div class="container">
             <h1 class="display-5">Özgeçmiş ve Deneyim</h1>
@@ -36,27 +46,37 @@
     </header>
 
     <main class="container my-5">
+
+        <!-- Eğitim bölümü - şuan tek bir ünversitem var, ileride lisansüstü gelirse buraya ekleycem -->
         <section class="mb-5">
             <h2 class="mb-4 border-bottom pb-2 text-primary">Eğitim Bilgileri</h2>
             <article class="card mb-3 shadow-sm border-0 bg-light">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">Sakarya Üniversitesi</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Bilgisayar / Mühendislik Bilimleri</h6>
-                    <p class="card-text">Dönem boyunca Web Teknolojileri, Veritabanı Yönetimi ve İşletim Sistemleri üzerine odaklanarak teknik altyapımı geliştirmeye devam ediyorum.</p>
+                    <p class="card-text">Şu an aktif olarak okuyorum. Bu dönem ağırlıklı olarak Web Teknolojileri, Veritabanı ve İşletim Sistemleri derslerine zaman ayırdım. En çok web tarafı ilgimi çekti, bu projeyi de o yüzden biraz daha sahiplendim.</p>
                 </div>
             </article>
         </section>
 
+        <!-- Projeler kısmı - şimdilik sadece oyun projelerimi yazdım, web tarafına da yer açacağım ileride -->
         <section class="mb-5">
             <h2 class="mb-4 border-bottom pb-2 text-primary">Projeler</h2>
             <article class="card mb-3 shadow-sm border-0">
                 <div class="card-body">
                     <h5 class="card-title fw-bold">Bağımsız Mobil Oyun Projeleri</h5>
-                    <p class="card-text">Unity ve C# kullanarak geliştirdiğim, kullanıcıların bilişsel yeteneklerini test eden mobil oyun prototipleri.</p>
+                    <p class="card-text">Unity ve C# ile yaptıgım, daha çok refleks ve dikkat üzerine kurulu küçük mobil oyun denemelerim. Henüz mağazaya yüklenmiş bir ürün yok, çoğu prototip aşamasında.</p>
+                </div>
+            </article>
+            <article class="card mb-3 shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">Web Teknolojileri Dönem Projesi</h5>
+                    <p class="card-text">Şu an okuduğunuz portfolyo sitesi. HTML5, Bootstrap, Vue.js ve PHP kullanarak sıfırdan yazdım. Hedef: derste işlenen tüm konuları bir arada gösteren, kendime ait bir tanıtım sitesi olması.</p>
                 </div>
             </article>
         </section>
 
+        <!-- Teknik beceriler - sadece gerçekten kullandıklarımı yazmaya özen gösterdim -->
         <section>
             <h2 class="mb-4 border-bottom pb-2 text-primary">Teknik Beceriler</h2>
             <div class="row">
@@ -76,6 +96,7 @@
         </section>
     </main>
 
+    <!-- Footer - tüm sayfalarda ortak -->
     <footer class="bg-dark text-white text-center py-4 mt-auto">
         <div class="container"><small>&copy; 2026 Akın | Web Teknolojileri Projesi</small></div>
     </footer>

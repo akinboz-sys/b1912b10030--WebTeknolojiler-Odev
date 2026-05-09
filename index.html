@@ -1,14 +1,22 @@
 <!DOCTYPE html>
+<!--
+    Akın Boz - Web Teknolojileri Projesi
+    Hakkında (Ana Sayfa) - index.html
+    Bu sayfa siteye gelen birinin ilk görüceği yer, o yüzden çok kalabalık olmasın istedim.
+    not: profil resmi UI Avatars servisinden geliyo, arka planı maviye sabitledim.
+-->
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Akın - Hakkında</title>
+    <!-- Bootstrap css i CDN üzerinden çekiyoruz, kendi style.css en altta ki kendi yazdıklarım onu ezebilsin -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- Üst Navigasyon - tüm sayfalarda aynı, sadece active linki değişiyor -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">Akın'ın Portfolyosu</a>
@@ -29,17 +37,21 @@
     </nav>
 
     <main class="container mt-5">
+
+        <!-- Tanıtım alanı: solda profil resmi sağda kısa yazı -->
         <div class="row align-items-center mb-5">
             <div class="col-md-4 text-center mb-4 mb-md-0">
+                <!-- not: gerçek fotoğraf yerine avatar generatoru kulanıyorum, ileride değişebilir -->
                 <img src="https://ui-avatars.com/api/?name=Akin&background=0D8ABC&color=fff&size=250&rounded=true" alt="Akın Profil" class="img-fluid rounded-circle shadow">
             </div>
             <div class="col-md-8">
                 <h1 class="display-4 fw-bold">Merhaba, Ben Akın</h1>
                 <p class="lead text-muted">Sakarya Üniversitesi | Bağımsız Oyun Geliştirici</p>
                 <p>
-                    Sakarya Üniversitesi'nde eğitimime devam ederken bir yandan da Unity ve C# kullanarak mobil platformlar için bağımsız projeler geliştiriyorum. Yazılım süreçlerimde her zaman yüksek disiplinli çalışma protokollerini ve verimliliği ön planda tutuyorum.
+                    Sakarya Üniversitesinde okuyorum, bir yandan da Unity ve C# ile küçük çaplı mobil oyunlar yapmaya çalışıyorum. Genelde tek başıma çalıştığım için kendi düzenimi kendim kuruyorum, çok dağıtmadan ilerlemeye gayret ediyorum.
                 </p>
                 <div class="mt-4">
+                    <!-- Github profili yeni sekmede açılsın diye target=_blank ekledim -->
                     <a href="https://github.com/akinboz-sys" target="_blank" class="btn btn-dark me-2">GitHub Profilim</a>
                     <a href="cv.html" class="btn btn-outline-primary">Özgeçmişimi Görüntüle</a>
                 </div>
@@ -48,13 +60,15 @@
 
         <hr class="my-5">
 
+        <!-- Hobi kartlrı - iki kolonlu basit bir bölüm -->
         <div class="row">
             <div class="col-12 mb-3"><h3>Hobilerim ve Etkinliklerim</h3></div>
             <div class="col-md-6 mb-4">
                 <div class="card h-100 shadow-sm border-0 bg-light">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Mobil Oyun Geliştirme</h5>
-                        <p class="card-text">Unity üzerinde zeka ve dikkat odaklı modüler oyun projeleri geliştiriyorum. Tasarımlarımda sadelik ve kullanıcı deneyimi (UX) önceliğimdir.</p>
+                        <!-- bu kısımda kendi tarzımı anlatmaya çalıştım, çok iddialı olmasın istedim -->
+                        <p class="card-text">Unity ile küçük, daha çok zeka/dikkat tarzı oyun denemeleri yapıyom. Çok süslü tasarımlardan ziyade sade ve oynanışı belli olan şeyleri seviyorum.</p>
                     </div>
                 </div>
             </div>
@@ -62,15 +76,17 @@
                 <div class="card h-100 shadow-sm border-0 bg-light">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">Yüksek Yoğunluklu Antrenman</h5>
-                        <p class="card-text">Zihinsel odaklanmayı artırmak için HIIT rutinleri uyguluyor ve disiplinli bir yaşam tarzı sürdürüyorum.</p>
+                        <p class="card-text">Bilgisayar başında uzun saatler geçirdiğim için boş zamanlarımda HIIT antrenmanı yapıyorum, hem kafamı dağıtıyo hem de düzenimi koruyo.</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Youtube videosu - geliştirme süreciyle alakalı bir gameplay videosu -->
         <div class="row mb-5">
             <div class="col-12 text-center">
                 <h4 class="mb-3 text-muted">Geliştirme Süreçlerimden Bir Kesit</h4>
+                <!-- iframe için bootstrapın ratio sınıfını kullanıyom, mobilde de düzgün çalışsın diye -->
                 <div class="ratio ratio-16x9 shadow rounded overflow-hidden">
                     <iframe src="https://www.youtube.com/embed/z1yHkF7C668?rel=0" title="Unity Geliştirme" allowfullscreen></iframe>
                 </div>
@@ -78,10 +94,12 @@
         </div>
     </main>
 
+    <!-- Sayfa altı (footer) - tüm sayfalarda aynı kalacak -->
     <footer class="bg-dark text-white text-center py-4 mt-auto">
         <div class="container"><small>&copy; 2026 Akın | Web Teknolojileri Projesi</small></div>
     </footer>
 
+    <!-- Bootstrap JS bundle - dropdown ve toggler için lazım -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

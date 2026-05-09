@@ -35,12 +35,23 @@
         <header class="text-center mb-5">
             <h1 class="display-5 fw-bold text-primary">Favori Dizi ve Filmlerim</h1>
             <p class="lead text-muted">Bu sayfadaki veriler <strong>TV Maze API</strong> kullanılarak canlı olarak çekilmektedir.</p>
-            <button id="fetchDataBtn" class="btn btn-primary btn-lg mt-3">Verileri Yenile / Getir</button>
+
+            <!-- Arama formu - kullanıcı artık kendi istediği diziyi arayabilir -->
+            <form id="searchForm" class="row g-2 justify-content-center mt-4" autocomplete="off">
+                <div class="col-md-6">
+                    <input type="text" id="searchInput" class="form-control form-control-lg"
+                           placeholder="Dizi adı yazın (örn: dark, office, the boys)" value="action">
+                </div>
+                <div class="col-md-auto">
+                    <button id="fetchDataBtn" type="submit" class="btn btn-primary btn-lg w-100">Ara</button>
+                </div>
+            </form>
+            <small class="text-muted d-block mt-2">Boş bırakırsanız varsayılan olarak "action" aramasını yapar</small>
         </header>
 
         <div id="movieContainer" class="row">
             <div class="col-12 text-center">
-                <p class="text-muted">Butona basarak verileri yükleyebilirsiniz...</p>
+                <p class="text-muted">Yukarıdan bir dizi adı yazıp <strong>Ara</strong>'ya basarak verileri yükleyebilirsiniz...</p>
             </div>
         </div>
     </main>
@@ -50,20 +61,40 @@
     </footer>
 
     <script>
-        document.getElementById('fetchDataBtn').addEventListener('click', function() {
-            const container = document.getElementById('movieContainer');
-            container.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary" role="status"></div><p>Yükleniyor...</p></div>';
+        // Form submit edildiğinde sayfa yenilenmesin, kendi fonksiyonumuz çalışsın
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetchShows();
+        });
 
-            // TV Maze API'den "Game of Thrones" araması yapıyoruz
-            fetch('https://api.tvmaze.com/search/shows?q=action')
+        // API çağrısını yapan ana fonksiyon - input içeriğini query olarak kulanır
+        function fetchShows() {
+            const container = document.getElementById('movieContainer');
+            const inputVal = document.getElementById('searchInput').value.trim();
+            // input boş bırakılırsa varsayılan değer "action" olsun
+            const query = inputVal === '' ? 'action' : inputVal;
+
+            // Yükleniyor animasyonu - kullanıcı bekliyo bilsin
+            container.innerHTML = '<div class="text-center w-100 py-4"><div class="spinner-border text-primary" role="status"></div><p class="mt-2">Yükleniyor...</p></div>';
+
+            // TV Maze API arama endpointi - query parametresi dinamik olarak gönderiliyor
+            fetch('https://api.tvmaze.com/search/shows?q=' + encodeURIComponent(query))
                 .then(response => response.json())
                 .then(data => {
-                    container.innerHTML = ''; // Temizle
-                    
+                    container.innerHTML = ''; // önceki sonuçları temzile
+
+                    // Hiç sonuç gelmediyse uyarı göster
+                    if (!data || data.length === 0) {
+                        container.innerHTML = '<div class="col-12 text-center py-4"><div class="alert alert-warning d-inline-block">"<strong>' + query + '</strong>" için sonuç bulunamadı. Farklı bir kelime deneyin.</div></div>';
+                        return;
+                    }
+
+                    // Gelen her dizi için bir kart oluştur
                     data.forEach(item => {
                         const show = item.show;
                         const image = show.image ? show.image.medium : 'https://via.placeholder.com/210x295?text=Resim+Yok';
-                        const summary = show.summary ? show.summary.substring(0, 150) + '...' : 'Özet bulunmuyor.';
+                        const summary = show.summary ? show.summary.replace(/<[^>]+>/g, '').substring(0, 150) + '...' : 'Özet bulunmuyor.';
+                        const rating = (show.rating && show.rating.average) ? show.rating.average : '-';
 
                         const col = document.createElement('div');
                         col.className = 'col-md-4 col-lg-3 mb-4';
@@ -72,6 +103,7 @@
                                 <img src="${image}" class="card-img-top" alt="${show.name}">
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold">${show.name}</h5>
+                                    <p class="mb-2"><span class="badge bg-warning text-dark">⭐ ${rating}</span></p>
                                     <p class="card-text small text-muted">${summary}</p>
                                     <a href="${show.url}" target="_blank" class="btn btn-sm btn-outline-primary w-100">Detayları Gör</a>
                                 </div>
@@ -81,10 +113,10 @@
                     });
                 })
                 .catch(error => {
-                    container.innerHTML = '<p class="text-danger text-center">Veri çekilirken bir hata oluştu!</p>';
+                    container.innerHTML = '<p class="text-danger text-center">Veri çekilirken bir hata oluştu! İnternet bağlantınızı kontrol edin.</p>';
                     console.error('Hata:', error);
                 });
-        });
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
